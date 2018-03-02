@@ -18,7 +18,8 @@
   "homepage": "https://github.com/xianjiezh/163music#readme",
   "dependencies": {
     "leancloud-storage": "^3.6.0",
-    "qiniu-js": "^1.0.22",
-    "plupload": "^2.3.2"
+    "plupload": "^2.3.2",
+    "qiniu": "^7.1.2",
+    "qiniu-js": "^1.0.22"
   }
 }

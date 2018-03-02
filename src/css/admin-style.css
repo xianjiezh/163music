@@ -1,0 +1,131 @@
+/* 初始化样式 */
+*{
+    padding: 0;
+    margin: 0;
+    box-sizing: border-box;
+}
+*::before,*::after{
+    padding: 0;
+    margin: 0;
+}
+ul,ol{
+    list-style: none;
+}
+a{
+    color: inherit;
+    text-decoration: none;
+}
+body{
+    overflow: hidden;
+    display: flex;
+    justify-content: center;
+}
+.page{
+    display: flex;
+    height: 100vh;
+}
+/* songList 下 */
+aside .songList{
+    overflow: auto;
+}
+aside .songList li{
+    border-bottom: 1px solid #aaa;
+    border-left: 1px solid #aaa;
+    text-align: left;
+    padding: 10px 50px;
+    cursor: pointer;
+}
+aside .createSongs{
+    text-align: center;
+    padding: 10px 20px;
+    cursor: pointer;
+}
+
+aside .createSongs.active{
+    background-color: #ddd;
+}
+main{
+    border-top-right-radius: 5px;
+    border-bottom-right-radius: 5px;
+    background-color: #ddd;
+
+}
+main form .row{
+    margin: 20px;
+}
+main form .row label{
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+}
+main form .row button{
+    padding: 5px 10px;
+    background-color: #4285f4;
+    border: none;
+    border-radius: 3px;
+    color: white;
+    margin-bottom: 10px;
+    cursor: pointer;
+    margin-left: -5px;
+}
+main form .row button:hover{
+    background-color: #317ef3;
+    box-shadow: 1px 1px 1px #ccc;
+}
+span.message{
+    width: 5em;    
+    display: inline-block;
+    text-align: justify;
+    overflow: hidden;
+    height: 1em;
+    line-height: 1;
+}
+span.message::after{
+    content: '';
+    display: inline-block;
+    width: 100%;
+}
+#container{
+    padding: 50px 70px;
+    border: 1px dashed #aaa;
+    border-radius: 5px;
+    text-align: center;
+    margin-left: 10px;
+}
+#pickfiles{
+    font-size: inherit;
+    padding: 7px 15px;
+    background-color: #4285f4;
+    border: none;
+    border-radius: 3px;
+    color: white;
+    margin-bottom: 10px;
+    cursor: pointer;
+}
+#pickfiles:hover{
+    background-color: #317ef3;
+    box-shadow: 1px 1px 1px #ccc;
+}
+.progressBarWrapper{
+    width: 150px;
+    height: 15px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 10px;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    display: none;
+}
+.progressBarWrapper.active{
+    display: block;
+}
+.progressBar{
+    display: block;
+    border-radius: 8px;
+    height: 100%;
+    background-color: #4285f4;
+}
+.upload-text{
+    margin-top: 10px;
+    margin-bottom: 10px;
+}
