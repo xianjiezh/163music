@@ -1,11 +1,14 @@
 {
     let view = {
         el: document.querySelector('.createSongs'),
-        template: `
-        <span>点击新建歌曲</span>
-        `,
+        template(){
+            let t = `
+            <span>点击新建歌曲</span>
+            `
+            return t
+        },
         render(data) {
-            this.el.innerHTML = this.template
+            this.el.innerHTML = this.template()
         }
     }
     let model = {}
@@ -14,7 +17,10 @@
             this.model = model
             this.view = view
             this.view.render(this.model.data)
-            this.active()
+            window.eventHub.on('upload', (data) => {
+                this.active()
+                window.eventHub.emit('upload')
+            })
         },
         active(){
             this.view.el.classList.add('active')

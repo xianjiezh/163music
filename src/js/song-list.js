@@ -1,26 +1,22 @@
 {
     let view = {
         el: document.querySelector('.songList-container'),
-        template: `
-        
-        <ul class="songList">
-            <li>1</li>
-            <li>2adsf </li>
-            <li>3</li>
-            <li>4</li>
-            <li>5</li>
-            <li>6</li>
-            <li>7</li>
-            <li>8</li>
-            <li>9</li>
-            <li>10</li>
-        </ul>
-        `,
+        template(songName){
+            let t = `
+            <ul class="songList">
+                <li>${songName}</li>
+            </ul>`
+            return t
+        },
         render(data) {
-            this.el.innerHTML = this.template
+            let t = this.template(data)
+            this.el.innerHTML = t
+            console.log('t', this.el.innerHTML)
         }
     }
-    let model = {}
+    let model = {
+        data: '000'
+    }
 
     let controller = {
         init(view, model){

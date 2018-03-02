@@ -1,35 +1,41 @@
 {
-    let model = {}
+    let model = {
+        data: {}
+    }
     let view = {
         el: document.querySelector('.page main'),
-        template: `
-        <form class="saveSongsForm">
-            <div class="row">
-                <label>
-                    <span class="message">歌手：</span>
-                    <input type="text">
-                </label>
-            </div>
-            <div class="row">
-                <label>
-                    <span class="message">歌曲名：</span>
-                    <input type="text">
-                </label>
-            </div>
-            <div class="row">
-                <label>
-                    <span class="message">歌曲外链：</span>
-                    <input type="text">
-                </label>
-            </div>
-            <div class="row">
-                <span class="message"></span>
-                <button type="submit">保存</button>
-            </div>
-        </form>
-        `,
+        template(singer, songName, link){
+            let t = `
+            <form class="saveSongsForm">
+                <div class="row">
+                    <label>
+                        <span class="message">歌手：</span>
+                        <input type="text" value="${singer}">
+                    </label>
+                </div>
+                <div class="row">
+                    <label>
+                        <span class="message">歌曲名：</span>
+                        <input type="text" value="${songName}">
+                    </label>
+                </div>
+                <div class="row">
+                    <label>
+                        <span class="message">歌曲外链：</span>
+                        <input type="text" value="${link}">
+                    </label>
+                </div>
+                <div class="row">
+                    <span class="message"></span>
+                    <button type="submit">保存</button>
+                </div>
+            </form>
+            `
+            return t
+        } ,
         render(data) {
-            this.el.innerHTML = this.template
+            let {singer, songName, link} = data
+            this.el.innerHTML = this.template(singer || '', songName || '', link || '')
         }
     }
     let controller = {
