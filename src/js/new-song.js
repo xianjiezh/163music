@@ -19,7 +19,6 @@
             this.view.render(this.model.data)
             window.eventHub.on('upload', (data) => {
                 this.active()
-                window.eventHub.emit('upload')
             })
         },
         active(){
@@ -27,11 +26,6 @@
         }
     }
     controller.init(model, view)
-
-
-
-
-
 
 
 

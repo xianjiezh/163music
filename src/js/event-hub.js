@@ -5,7 +5,7 @@ window.eventHub = {
             if(key === eventName){
                 let fnList = this.events[key]
                 fnList.forEach(fn => {
-                    fn()
+                    fn(data)
                 })
             }
         }

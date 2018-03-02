@@ -43,6 +43,14 @@
             this.model = model
             this.view = view
             this.view.render(this.model.data)
+            window.eventHub.on('upload', (data) => {
+                let o = {
+                    singer: data.name.split('-')[0],
+                    songName: data.name.split('-')[1],
+                    link: data.link
+                }
+                this.view.render(o)
+            })
         }
     }
     controller.init(model, view)
