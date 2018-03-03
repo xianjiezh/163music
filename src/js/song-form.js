@@ -8,13 +8,12 @@
         create(data) {
             let TestObject = AV.Object.extend('Playlist')
             let testObject = new TestObject()
-            let {singer, songName, link} = data
-            testObject.save({
+            let { singer, songName, link } = data
+            return testObject.save({
                 singer: singer,
                 songName: songName,
                 link: link
             })
-            return testObject
         }
     }
     let view = {
@@ -42,7 +41,7 @@
                 </div>
                 <div class="row">
                     <span class="message"></span>
-                    <button type="submit">保存</button>
+                    <button type="submit" class="enabled">保存</button>
                 </div>
             </form>
             `
@@ -77,10 +76,29 @@
                 m.forEach(value => {
                     data[value] = form.querySelector(`[name=${value}]`).value
                 })
-                this.model.create(data).then(function(o){
-                    
+                this.model.create(data).then(o => {
+                    let { id, attributes } = o
+                    this.model.data = Object.assign({
+                        id,
+                        ...attributes
+                        // 相当于下面这样写
+                        // id: id,
+                        // songName: attributes.songName,
+                        // singer: singer,
+                        // link: attributes.link
+                    })
+                    let submitButton = form.querySelector('[type="submit"]')
+                    submitButton.disabled = true
+                    submitButton.classList.remove('enabled')
+                    submitButton.classList.add('disabled')
+                    this.reset()
+                },(err) =>{
+                    console.log(err)
                 })
             })
+        },
+        reset(){
+            this.view.render({})
         }
     }
     controller.init(model, view)

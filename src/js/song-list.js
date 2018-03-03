@@ -14,7 +14,8 @@
         }
     }
     let model = {
-        data: {}
+        data: {},
+        songs:[]
     }
 
     let controller = {
@@ -26,6 +27,8 @@
                 this.model.data = data
                 this.deActive(this.view.el.querySelector('.songList').children)
                 this.view.addSongs(this.model.data.name)
+                this.model.songs.push(data)
+                log(this.model.songs)
             })
         },
         deActive(elements){

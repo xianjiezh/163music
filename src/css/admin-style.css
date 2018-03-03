@@ -31,6 +31,14 @@ aside .songList{
 li.active{
     background-color: #ddd;
 }
+main form .row button.disabled{
+    cursor: not-allowed;
+    color: #bfcbd9;
+    background-color: #eef1f6;
+    padding: 5px 10px; 
+    border-radius: 3px;
+    border: 1px solid #dedbd5;
+}
 .createSongs.active{
     background-color: #ddd;
 }
@@ -66,7 +74,7 @@ main form .row label{
     justify-content: flex-end;
     align-items: center;
 }
-main form .row button{
+main form .row .enabled{
     padding: 5px 10px;
     background-color: #4285f4;
     border: none;
@@ -76,7 +84,7 @@ main form .row button{
     cursor: pointer;
     margin-left: -5px;
 }
-main form .row button:hover{
+main form .row .enabled:hover{
     background-color: #317ef3;
     box-shadow: 1px 1px 1px #ccc;
 }
