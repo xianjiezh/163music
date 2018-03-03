@@ -18,11 +18,11 @@
             this.view = view
             this.view.render(this.model.data)
             window.eventHub.on('upload', (data) => {
-                this.active()
+                this.deActive()
             })
         },
-        active(){
-            this.view.el.classList.add('active')
+        deActive(){
+            this.view.el.classList.remove('active')
         }
     }
     controller.init(model, view)

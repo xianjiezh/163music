@@ -28,6 +28,12 @@ body{
 aside .songList{
     overflow: auto;
 }
+li.active{
+    background-color: #ddd;
+}
+.createSongs.active{
+    background-color: #ddd;
+}
 aside .songList li{
     border-bottom: 1px solid #aaa;
     border-left: 1px solid #aaa;
@@ -39,7 +45,7 @@ aside .createSongs{
     text-align: center;
     padding: 10px 20px;
     cursor: pointer;
-    border-right: 1px solid #aaa;
+    border-left: 1px solid #aaa;
     border-bottom: 1px solid #aaa;
 }
 
