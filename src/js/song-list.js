@@ -16,15 +16,8 @@
     let model = {
         data: {},
         songs:[],
-        fetch(){
-            var query = new AV.Query('Playlist')
-            query.find().then(o => {
-                return o
-            }).catch(function(error) {
-              alert(JSON.stringify(error))
-            })
-        },
-        playList: this.fetch()
+        playlist: null,
+        
     }
 
     let controller = {
