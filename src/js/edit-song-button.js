@@ -12,8 +12,8 @@
         },
         bindEvents(){
             this.view.el.addEventListener('click', e => {
-                e.currentTarget.classList.add('show')
-                document.querySelector('.createSongs').classList.remove('show')
+                e.currentTarget.classList.remove('hide')
+                document.querySelector('.createSongs').classList.add('hide')
                 document.querySelector('.uploadSongList').style.display = 'none'
                 document.querySelector('.editSongList').style.display = 'block'
             })

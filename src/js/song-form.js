@@ -17,80 +17,41 @@
         }
     }
     let view = {
-        el: document.querySelector('.page main'),
-        template(singer, songName, link) {
-            let t = `
-            <form class="saveSongsForm">
-                <div class="row">
-                    <label>
-                        <span class="message">歌手：</span>
-                        <input type="text" value="${singer}" name="singer">
-                    </label>
-                </div>
-                <div class="row">
-                    <label>
-                        <span class="message">歌曲名：</span>
-                        <input type="text" value="${songName}" name="songName">
-                    </label>
-                </div>
-                <div class="row">
-                    <label>
-                        <span class="message">歌曲外链：</span>
-                        <input type="text" value="${link}" name="link">
-                    </label>
-                </div>
-                <div class="row">
-                    <span class="message"></span>
-                    <input type="submit" class="enabled" value="提交">
-                </div>
-            </form>
-            `
-            return t
-        },
+        el: document.querySelector('.page main .saveSongsForm'),
         render(data) {
             let { singer, songName, link } = data
-            this.el.innerHTML = this.template(singer || '', songName || '', link || '')
+            let inputSinger = this.el.querySelector('[name=singer]')
+            let inputSongName = this.el.querySelector('[name=songName]')
+            let inputLink = this.el.querySelector('[name=link]')
+            inputSinger.value = singer
+            inputSongName.value = songName
+            inputLink.value = link
         }
     }
     let controller = {
         init(model, view) {
             this.model = model
             this.view = view
-            this.view.render(this.model.data)
             this.bindEventHub()
             this.bindEvents()
         },
         bindEvents() {
-            let form = this.view.el.querySelector('.saveSongsForm')
-            form.addEventListener('submit', e => {
+            this.view.el.addEventListener('submit', (e) => {
                 e.preventDefault()
                 let m = ['singer', 'songName', 'link']
                 let data = {}
                 m.forEach(value => {
-                    data[value] = form.querySelector(`[name=${value}]`).value
+                    data[value] = this.view.el.querySelector(`[name=${value}]`).value
                 })
-                this.model.create(data).then(o => {
-                    let { id, attributes } = o
-                    this.model.data = Object.assign({
-                        id,
-                        ...attributes
-                        // 相当于下面这样写
-                        // id: id,
-                        // songName: attributes.songName,
-                        // singer: singer,
-                        // link: attributes.link
-                    })
-                    let submitButton = form.querySelector('[type="submit"]')
-                    submitButton.disabled = true
-                    submitButton.classList.remove('enabled')
-                    submitButton.classList.add('disabled')
-                    this.reset()
-                },(err) =>{
-                    console.log(err)
-                })
+                if (!document.querySelector('.createSongs').classList.contains('hide')) {
+                    this.createSongs()
+                } else {
+                    this.editSongs()
+                }
+
             })
         },
-        bindEventHub(){
+        bindEventHub() {
             window.eventHub.on('upload', (data) => {
                 let o = {
                     singer: data.name.split(' - ')[0],
@@ -99,9 +60,55 @@
                 }
                 this.view.render(o)
             })
+            window.eventHub.on('selected', data => {
+                log(data)
+                let song = {
+                    id: data.id,
+                    singer: data.attributes.singer,
+                    songName: data.attributes.songName,
+                    link: data.attributes.link
+                }
+                log('song', song)
+                this.view.render(song)
+            })
         },
-        reset(){
+        reset() {
             this.view.render({})
+        },
+        createSongs() {
+            this.model.create(data).then(o => {
+                let { id, attributes } = o
+                this.model.data = Object.assign({
+                    id,
+                    ...attributes
+                    // 相当于下面这样写
+                    // id: id,
+                    // songName: attributes.songName,
+                    // singer: singer,
+                    // link: attributes.link
+                })
+                log(this.model.data)
+                let submitButton = form.querySelector('[type="submit"]')
+                submitButton.classList.remove('enabled')
+                submitButton.classList.add('disabled')
+                this.reset()
+            }, (err) => {
+                console.log(err)
+            })
+        },
+        editSongs(data) {
+            let { id, attributes } = data
+                this.model.data = Object.assign({
+                    id,
+                    ...attributes
+                })
+            let song = AV.Object.createWithoutData('Songlist', id);
+            // 修改属性
+            song.set('singer', singer)
+            song.set('songName', songName)
+            song.set('link', link)
+            // 保存到云端
+            todo.save();
         }
     }
     controller.init(model, view)

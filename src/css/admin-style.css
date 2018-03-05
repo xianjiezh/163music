@@ -39,7 +39,6 @@ input{
 }
 .page{
     display: flex;
-    height: 100vh;
     box-shadow: 0 2px 4px 0 rgba(0,0,0,0.12), 0 0 6px 0 rgba(0,0,0,0.04);
     background-color: white;
 }
@@ -79,9 +78,23 @@ aside .editSongs{
 aside .createSongs span{
     text-align: center;
 }
-aside .createSongs.show,
-aside .editSongs.show{
+aside .createSongs.hide,
+aside .editSongs.hide{
     background-color: #eef1f6;
+}
+aside .songList-container ul{
+    height: 70vh;
+    overflow-y: auto;
+}
+aside .songList-container li{
+    text-align: center;
+    font-size: 16px;
+    padding: 7px;
+    border-bottom: 1px dashed #ddd;
+    cursor: pointer;
+}
+aside .songList-container li:hover{
+    background-color: #ddd;
 }
 main{
     border-top-right-radius: 5px;

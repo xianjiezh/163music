@@ -11,8 +11,8 @@
         },
         bindEvents(){
             this.view.el.addEventListener('click', e => {
-                e.currentTarget.classList.add('show')
-                document.querySelector('.editSongs').classList.remove('show')
+                e.currentTarget.classList.remove('hide')
+                document.querySelector('.editSongs').classList.add('hide')
                 document.querySelector('.uploadSongList').style.display = 'block'
                 document.querySelector('.editSongList').style.display = 'none'
                 // window.eventHub.emit('tabToCreate', data)

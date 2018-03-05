@@ -16,7 +16,7 @@
         <div class="page">
             <aside>
                 <div class="buttonsWrapper clearfix">
-                    <div class="createSongs show">
+                    <div class="createSongs hide">
                         <span>点击新建歌曲</span>
                     </div>
                     <div class="editSongs">
@@ -24,11 +24,36 @@
                     </div>
                 </div>
                 <div class="songList-container">
-                    <ul class="uploadSongList" style="display: block">adf</ul>
-                    <ul class="editSongList" style="display: none">adsf</ul>
+                    <ul class="uploadSongList" style="display: none"></ul>
+                    <ul class="editSongList" style="display: block"></ul>
                 </div>
             </aside>
-            <main></main>
+            <main>
+                <form class="saveSongsForm">
+                    <div class="row">
+                        <label>
+                            <span class="message">歌手：</span>
+                            <input type="text" name="singer">
+                        </label>
+                    </div>
+                    <div class="row">
+                        <label>
+                            <span class="message">歌曲名：</span>
+                            <input type="text" name="songName">
+                        </label>
+                    </div>
+                    <div class="row">
+                        <label>
+                            <span class="message">歌曲外链：</span>
+                            <input type="text" name="link">
+                        </label>
+                    </div>
+                    <div class="row">
+                        <span class="message"></span>
+                        <input type="submit" class="enabled" value="提交">
+                    </div>
+                </form>
+            </main>
             <div class="upload-area">
 
             </div>
