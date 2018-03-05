@@ -1,45 +1,56 @@
 {
     let view = {
         el: document.querySelector('.songList-container'),
-        init() {
-            this.el.innerHTML = `<ul class="songList"></ul>`
-        },
-        template(songName) {
-            let t = `<li class="active" id="${id}">${songName}</li>`
+        uploadSongTemplate: '',
+        editSongTemplate: '',
+        template(song) {
+            let { id, songName } = song
+            let t = `<li class="active" data-id="${id}">${songName}</li>`
             return t
         },
-        addSongs(data) {
-            let t = this.template(data)
-            this.el.querySelector('.songList').insertAdjacentHTML('beforeend', t)
+        render(data) {
+            this.el.querySelector('.songList').innerHTML = this.uploadSongTemplate
         }
     }
     let model = {
         data: {},
-        songs:[],
+        uploadSongs: [],
+        editSongs: [],
         playlist: null,
-        
+
     }
 
     let controller = {
         init(view, model) {
             this.view = view
             this.model = model
-            this.view.init()
             this.bindEventHub()
         },
-        deActive(elements){
+        deActive(elements) {
             for (let i = 0; i < elements.length; i++) {
                 const ele = elements[i]
                 ele.classList.remove('active')
             }
         },
-        bindEventHub(){
+        bindEventHub() {
             window.eventHub.on('upload', data => {
-                this.model.data = data
                 this.deActive(this.view.el.querySelector('.songList').children)
                 this.view.addSongs(this.model.data.name)
                 this.model.songs.push(data)
                 log(this.model.songs)
+            })
+            window.eventHub.on('tabToEdit', data => {
+                if (this.editSongs !== data) {
+                    this.editSongs = data
+                    this.view.uploadSongTemplate = ''
+                    data.forEach(song => {
+                        let t = this.view.template(song)
+                        this.view.uploadSongTemplate += t
+                    })
+                    log()
+                    this.view.render(data)
+                }
+
             })
         }
     }

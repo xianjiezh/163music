@@ -1,3 +1,5 @@
+
+// 管理页面上数据
 window.eventHub = {
     events: {},
     emit(eventName, data){

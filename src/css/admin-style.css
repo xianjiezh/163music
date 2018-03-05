@@ -22,6 +22,11 @@ body{
 input{
     padding: 3px;
 }
+.clearfix::after{
+    content: '';
+    display: block;
+    clear: both;
+}
 .hearder{
     text-align: center;
     margin-top: 20px;
@@ -38,7 +43,11 @@ input{
     box-shadow: 0 2px 4px 0 rgba(0,0,0,0.12), 0 0 6px 0 rgba(0,0,0,0.04);
     background-color: white;
 }
+aside{
+    background-color: white;
+}
 /* songList 下 */
+
 aside .songList{
     overflow: auto;
 }
@@ -53,26 +62,32 @@ main form .row button.disabled{
     border-radius: 3px;
     border: 1px solid #dedbd5;
 }
-.createSongs.active{
-    background-color: #ddd;
-}
 aside .songList li{
     border-bottom: 1px solid #aaa;
-    border-left: 1px solid #aaa;
+    margin-top: 2px;
     text-align: left;
     padding: 10px 50px;
     cursor: pointer;
 }
 aside .createSongs{
-    text-align: center;
     padding: 10px 20px;
     cursor: pointer;
+    float: left;
+}
+aside .editSongs{
+    padding: 5px 10px;
+    background-color: white;
     border-left: 1px solid #aaa;
     border-bottom: 1px solid #aaa;
+    float: left;
+    transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
-
+aside .createSongs span{
+    text-align: center;
+}
 aside .createSongs.active{
-    background-color: #ddd;
+    background-color: #eef1f6;
+    border: 1px solid transparent;
 }
 main{
     border-top-right-radius: 5px;
