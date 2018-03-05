@@ -16,15 +16,16 @@
         <div class="page">
             <aside>
                 <div class="buttonsWrapper clearfix">
-                    <div class="createSongs active">
-
+                    <div class="createSongs show">
+                        <span>点击新建歌曲</span>
                     </div>
                     <div class="editSongs">
                         <span class="editSongsButton">编辑已有歌曲</span>
                     </div>
                 </div>
                 <div class="songList-container">
-                    <ul class="songList"></ul>
+                    <ul class="uploadSongList" style="display: block">adf</ul>
+                    <ul class="editSongList" style="display: none">adsf</ul>
                 </div>
             </aside>
             <main></main>
@@ -45,10 +46,14 @@
     <!-- 模块化JS -->
     <script src="./js/event-hub.js"></script>
     <script src="./js/song-form.js"></script>
-    <script src="./js/new-song.js"></script>
-    <script src="./js/song-list.js"></script>
+
+    <script src="./js/new-song-button.js"></script>
+    <script src="./js/edit-song-button.js"></script>
+
+    <script src="./js/upload-song-list.js"></script>
+    <script src="./js/edit-song-list.js"></script>
+
     <script src="./js/upload-songs.js"></script>
-    <script src="./js/edit-songs.js"></script>
 </body>
 
 </html>

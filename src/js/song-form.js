@@ -41,7 +41,7 @@
                 </div>
                 <div class="row">
                     <span class="message"></span>
-                    <button type="submit" class="enabled">保存</button>
+                    <input type="submit" class="enabled" value="提交">
                 </div>
             </form>
             `

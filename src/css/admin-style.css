@@ -64,30 +64,24 @@ main form .row button.disabled{
 }
 aside .songList li{
     border-bottom: 1px solid #aaa;
-    margin-top: 2px;
     text-align: left;
     padding: 10px 50px;
     cursor: pointer;
 }
-aside .createSongs{
+aside .createSongs,
+aside .editSongs{
     padding: 10px 20px;
     cursor: pointer;
     float: left;
-}
-aside .editSongs{
-    padding: 5px 10px;
-    background-color: white;
-    border-left: 1px solid #aaa;
-    border-bottom: 1px solid #aaa;
-    float: left;
     transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
 }
+
 aside .createSongs span{
     text-align: center;
 }
-aside .createSongs.active{
+aside .createSongs.show,
+aside .editSongs.show{
     background-color: #eef1f6;
-    border: 1px solid transparent;
 }
 main{
     border-top-right-radius: 5px;
