@@ -47,9 +47,11 @@
                     this.createSongs(data)
                     this.reset()
                 } else {
-                    this.editSongs(this.model.editSongList)
+                    let id = this.model.editSongLi.id
+                    let { singer, songName, link } = data
+                    log(id)
+                    this.editSongs({ id, singer, songName, link })
                 }
-
             })
         },
         bindEventHub() {
@@ -62,14 +64,13 @@
                 this.view.render(o)
             })
             window.eventHub.on('selected', data => {
-                log(data)
                 let selectedSong = {
                     id: data.id,
                     singer: data.attributes.singer,
                     songName: data.attributes.songName,
                     link: data.attributes.link
                 }
-                this.model.editSongList = Object.assign(selectedSong)
+                this.model.editSongLi = Object.assign(selectedSong)
                 this.view.render(selectedSong)
             })
             window.eventHub.on('selectedUploadList', data => {
@@ -90,14 +91,9 @@
                     // songName: attributes.songName,
                     // singer: singer,
                     // link: attributes.link
-                }) 
-                log(this.model.data)
-                let submitButton = this.view.el.querySelector('[type="submit"]')
-                submitButton.classList.remove('enabled')
-                submitButton.classList.add('disabled')
+                })
+                window.eventHub.emit('successCreate', 'success')
                 this.reset()
-            }, (err) => {
-                console.log(err)
             })
         },
         editSongs(data) {
@@ -108,8 +104,9 @@
             song.set('singer', singer)
             song.set('songName', songName)
             song.set('link', link)
-            // 保存到云端
-            song.save()
+            song.save().then(res => {
+                window.eventHub.emit('successEdit', 'success')
+            })
         }
     }
     controller.init(model, view)

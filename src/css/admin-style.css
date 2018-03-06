@@ -27,11 +27,20 @@ input{
     display: block;
     clear: both;
 }
-.hearder{
+
+.successTip{
+    height: 55px;
+    text-align: center;
+    margin-top: 20px;
+    transition: cubic-bezier(0.445, 0.05, 0.55, 0.95);
+    font-family: poppin,Tahoma,Arial,\5FAE\8F6F\96C5\9ED1,sans-serif;
+}
+.header{
     text-align: center;
     margin-top: 20px;
     margin-bottom: 20px;
 }
+
 .pageWrapper{
     overflow: hidden;
     display: flex;
@@ -142,7 +151,7 @@ span.message::after{
     width: 100%;
 }
 #container{
-    padding: 50px 70px;
+    padding: 80px 90px;
     border: 1px dashed #aaa;
     border-radius: 5px;
     text-align: center;
