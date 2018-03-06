@@ -105,7 +105,8 @@
             song.set('songName', songName)
             song.set('link', link)
             song.save().then(res => {
-                window.eventHub.emit('successEdit', 'success')
+                data['success'] = 'success'
+                window.eventHub.emit('successEdit', data)
             })
         }
     }

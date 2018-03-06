@@ -28,6 +28,7 @@
             this.model = model
             this.getSongs()
             this.selected()
+            this.bindEventHub()
         },
         getSongs() {
             this.model.fetch().then(songs => {
@@ -55,6 +56,21 @@
                 })
             })
         },
+        bindEventHub(){
+            window.eventHub.on('successEdit', data => {
+                let liList = this.view.el.children
+                for (let i = 0; i < liList.length; i++) {
+                    const li = liList[i]
+
+                    if(li.getAttribute('data-id') === data.id){
+                        let { id, singer, songName} = data
+                        li.innerHTML = `${singer} - ${songName}`
+                        break
+                    }
+                    
+                }
+            })
+        }
         
 
     }

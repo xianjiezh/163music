@@ -25,7 +25,9 @@
         bindEventHub(){
             window.eventHub.on('successEdit', data => {
                 log(data)
-                if(data + '' === 'successss'){
+                let s = data.success
+                log('ss', s)
+                if(s + '' === 'success'){
                     this.view.el.classList.add('success')
                     setTimeout(() => {
                         this.view.el.classList.remove('success')

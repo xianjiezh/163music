@@ -34,7 +34,6 @@
                 let link = data.link
                 for (let i = 0; i < liList.length; i++) {
                     const li = liList[i]
-                    log(li)
                     log(link, li.getAttribute('data-link'))
                     if (link === li.getAttribute('data-link')) {
                         li.classList.add('finish')
