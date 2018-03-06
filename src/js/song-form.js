@@ -23,9 +23,9 @@
             let inputSinger = this.el.querySelector('[name=singer]')
             let inputSongName = this.el.querySelector('[name=songName]')
             let inputLink = this.el.querySelector('[name=link]')
-            inputSinger.value = singer
-            inputSongName.value = songName
-            inputLink.value = link
+            inputSinger.value = singer || ''
+            inputSongName.value = songName || ''
+            inputLink.value = link || ''
         }
     }
     let controller = {
@@ -44,9 +44,10 @@
                     data[value] = this.view.el.querySelector(`[name=${value}]`).value
                 })
                 if (!document.querySelector('.createSongs').classList.contains('hide')) {
-                    this.createSongs()
+                    this.createSongs(data)
+                    this.reset()
                 } else {
-                    this.editSongs()
+                    this.editSongs(this.model.editSongList)
                 }
 
             })
@@ -62,20 +63,23 @@
             })
             window.eventHub.on('selected', data => {
                 log(data)
-                let song = {
+                let selectedSong = {
                     id: data.id,
                     singer: data.attributes.singer,
                     songName: data.attributes.songName,
                     link: data.attributes.link
                 }
-                log('song', song)
-                this.view.render(song)
+                this.model.editSongList = Object.assign(selectedSong)
+                this.view.render(selectedSong)
+            })
+            window.eventHub.on('selectedUploadList', data => {
+                this.view.render(data)
             })
         },
         reset() {
             this.view.render({})
         },
-        createSongs() {
+        createSongs(data) {
             this.model.create(data).then(o => {
                 let { id, attributes } = o
                 this.model.data = Object.assign({
@@ -86,9 +90,9 @@
                     // songName: attributes.songName,
                     // singer: singer,
                     // link: attributes.link
-                })
+                }) 
                 log(this.model.data)
-                let submitButton = form.querySelector('[type="submit"]')
+                let submitButton = this.view.el.querySelector('[type="submit"]')
                 submitButton.classList.remove('enabled')
                 submitButton.classList.add('disabled')
                 this.reset()
@@ -97,18 +101,15 @@
             })
         },
         editSongs(data) {
-            let { id, attributes } = data
-                this.model.data = Object.assign({
-                    id,
-                    ...attributes
-                })
-            let song = AV.Object.createWithoutData('Songlist', id);
+            log(data)
+            let { id, singer, songName, link } = data
+            let song = AV.Object.createWithoutData('Playlist', id);
             // 修改属性
             song.set('singer', singer)
             song.set('songName', songName)
             song.set('link', link)
             // 保存到云端
-            todo.save();
+            song.save()
         }
     }
     controller.init(model, view)

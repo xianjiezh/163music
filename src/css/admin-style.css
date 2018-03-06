@@ -82,9 +82,13 @@ aside .createSongs.hide,
 aside .editSongs.hide{
     background-color: #eef1f6;
 }
+aside .songList-container{
+    overflow: hidden;
+}
 aside .songList-container ul{
     height: 70vh;
     overflow-y: auto;
+    width: calc(100% + 18px);
 }
 aside .songList-container li{
     text-align: center;

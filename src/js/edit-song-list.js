@@ -27,7 +27,7 @@
             this.view = view
             this.model = model
             this.getSongs()
-            this.selecte()
+            this.selected()
         },
         getSongs() {
             this.model.fetch().then(songs => {
@@ -37,7 +37,7 @@
                 })
             })
         },
-        selecte() {
+        selected() {
             this.view.el.addEventListener('click', e => {
                 let liList = e.target.parentElement.children
                 for (let i = 0; i < liList.length; i++) {

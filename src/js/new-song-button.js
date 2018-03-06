@@ -8,6 +8,7 @@
             this.model = model
             this.view = view
             this.bindEvents()
+            this.bindEventHub()
         },
         bindEvents(){
             this.view.el.addEventListener('click', e => {
@@ -15,7 +16,11 @@
                 document.querySelector('.editSongs').classList.add('hide')
                 document.querySelector('.uploadSongList').style.display = 'block'
                 document.querySelector('.editSongList').style.display = 'none'
-                // window.eventHub.emit('tabToCreate', data)
+            })
+        },
+        bindEventHub(){
+            window.eventHub.on('upload', data =>{
+                this.view.el.click()
             })
         }
     }
