@@ -28,16 +28,49 @@ input{
     clear: both;
 }
 
+header{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-top: 10px;
+}
 .successTip{
-    height: 55px;
+    height: 40px;
     text-align: center;
-    margin-top: 20px;
-    transition: cubic-bezier(0.445, 0.05, 0.55, 0.95);
+    padding: 5px 20px;
+    transition: cubic-bezier(0.445, 0.05, 0.55, 0.95) .2s;
     font-family: poppin,Tahoma,Arial,\5FAE\8F6F\96C5\9ED1,sans-serif;
+    font-size: 18px;
+}
+.successTip.success{
+    transition: all .3s;
+    padding: 6px 20px;
+    background-color: #8dd35f;
+    color: white;
+    border-radius: 3px;
+}
+.successTip.success::after{
+    content: '更新成功！';
+    display: block;
+    width: 100%;
+    text-align: center;
+}
+.successTip.fail{
+    transition: all .3s;
+    padding: 6px 20px;
+    background-color: #e91a38;
+    color: white;
+    border-radius: 3px;
+}
+.successTip.fail::after{
+    content: '更新失败，请稍后重试！';
+    display: block;
+    width: 100%;
+    text-align: center;
 }
 .header{
     text-align: center;
-    margin-top: 20px;
+    margin-top: 10px;
     margin-bottom: 20px;
 }
 
@@ -61,6 +94,9 @@ aside .songList{
 }
 li.active{
     background-color: #ddd;
+}
+li.finish{
+    text-decoration: line-through;
 }
 main form .row button.disabled{
     cursor: not-allowed;

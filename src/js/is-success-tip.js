@@ -23,7 +23,20 @@
             this.bindEventHub()
         },
         bindEventHub(){
-            
+            window.eventHub.on('successEdit', data => {
+                log(data)
+                if(data + '' === 'successss'){
+                    this.view.el.classList.add('success')
+                    setTimeout(() => {
+                        this.view.el.classList.remove('success')
+                    }, 1700)
+                } else{
+                    this.view.el.classList.add('fail')
+                    setTimeout(() => {
+                        this.view.el.classList.remove('fail')
+                    }, 1900)
+                }
+            })
         },
     }
 

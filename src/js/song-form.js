@@ -92,7 +92,7 @@
                     // singer: singer,
                     // link: attributes.link
                 })
-                window.eventHub.emit('successCreate', 'success')
+                window.eventHub.emit('successCreate', this.model.data)
                 this.reset()
             })
         },

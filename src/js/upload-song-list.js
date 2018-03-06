@@ -1,8 +1,8 @@
 {
     let view = {
         el: document.querySelector('.uploadSongList'),
-        template(data){
-            let {name, link} = data
+        template(data) {
+            let { name, link } = data
             let singer = name.split(' - ')[0]
             let songName = name.split(' - ')[1]
             let t = `
@@ -10,7 +10,7 @@
             `
             return t
         },
-        render(data){
+        render(data) {
             this.el.insertAdjacentHTML('beforeend', this.template(data))
         }
     }
@@ -18,22 +18,34 @@
         songList: []
     }
     let controller = {
-        init(view, model){
+        init(view, model) {
             this.view = view
             this.model = model
             this.bindEventHub()
             this.bindEvents()
         },
-        bindEventHub(){
+        bindEventHub() {
             window.eventHub.on('upload', data => {
                 this.model.songList.push(data)
                 this.view.render(data)
             })
+            window.eventHub.on('successCreate', data => {
+                let liList = this.view.el.children
+                let link = data.link
+                for (let i = 0; i < liList.length; i++) {
+                    const li = liList[i]
+                    log(li)
+                    log(link, li.getAttribute('data-link'))
+                    if (link === li.getAttribute('data-link')) {
+                        li.classList.add('finish')
+                    }
+                }
+            })
         },
-        bindEvents(){
+        bindEvents() {
             this.view.el.addEventListener('click', e => {
                 let target
-                if(e.target.tagName === 'LI'){
+                if (e.target.tagName === 'LI') {
                     target = e.target
                     let liList = target.parentElement.children
                     for (let i = 0; i < liList.length; i++) {
@@ -42,7 +54,7 @@
                     }
                     target.classList.add('active')
                     let [singer, songName, link] = [target.textContent.split('-')[0], target.textContent.split('-')[1], target.getAttribute('data-link')]
-                    let o = {singer, songName, link}
+                    let o = { singer, songName, link }
                     window.eventHub.emit('selectedUploadList', o)
                 }
 
