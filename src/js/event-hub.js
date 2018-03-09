@@ -22,6 +22,6 @@ window.eventHub = {
         this.events[eventName].push(callbackFn)
     },
     off(){
-
+        //
     }
 }

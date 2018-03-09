@@ -20,7 +20,7 @@
             <aside>
                 <div class="buttonsWrapper clearfix">
                     <div class="createSongs hide">
-                        <span>点击新建歌曲</span>
+                        <span>新建歌曲</span>
                     </div>
                     <div class="editSongs">
                         <span class="editSongsButton">编辑已有歌曲</span>
@@ -52,14 +52,37 @@
                         </label>
                     </div>
                     <div class="row">
+                        <label>
+                            <span class="message">封面外链：</span>
+                            <input type="text" name="cover">
+                        </label>
+                    </div>
+                    <div class="row">
+                        <label style="align-items: flex-start">
+                            <span class="message">歌词：</span>
+                            <textarea name="lyrics" rows="15"></textarea>
+                        </label>
+                    </div>
+                    <div class="row">
                         <span class="message"></span>
                         <input type="submit" class="enabled" value="提交">
                     </div>
                 </form>
             </main>
             <div class="upload-area">
-
+                <div id="container">
+                    <div class="buttonWrapper">
+                        <button id="pickfiles">点击这里上传文件</button>
+                    </div>
+                    <div>拖拽 mp3 格式的音频文件或 jpg/jpeg 格式的歌曲封面图片到这里</div>
+                    <div style="margin-top: 10px;">为了方便您的操作，同一首歌的图片和音频最好是同步上传哈</div>
+                    <div class="upload-text"></div>
+                    <div class="progressBarWrapper">
+                        <div class="progressBar"></div>
+                    </div>
+                </div>
             </div>
+
         </div>
     </div>
 
@@ -76,7 +99,7 @@
     <script src="./js/song-form.js"></script>
 
     <script src="./js/is-success-tip.js"></script>
-    
+
     <script src="./js/new-song-button.js"></script>
     <script src="./js/edit-song-button.js"></script>
 

@@ -27,7 +27,17 @@ input{
     display: block;
     clear: both;
 }
-
+input[type="text"]{
+    width: 240px;
+    height: 26px;
+    font-size: 17px;
+    font-family: Arial, Helvetica, sans-serif
+}
+textarea{
+    font-size: 17px;
+    font-family: Arial, Helvetica, sans-serif,;
+    width: 240px;
+}
 header{
     display: flex;
     justify-content: center;
@@ -114,7 +124,7 @@ aside .songList li{
 }
 aside .createSongs,
 aside .editSongs{
-    padding: 10px 20px;
+    padding: 10px 25px;
     cursor: pointer;
     float: left;
     transition: all 0.3s cubic-bezier(0.645, 0.045, 0.355, 1);
@@ -159,6 +169,7 @@ main form .row label{
     justify-content: flex-end;
     align-items: center;
 }
+
 main form .row .enabled{
     padding: 5px 10px;
     background-color: #4285f4;
@@ -174,7 +185,7 @@ main form .row .enabled:hover{
     box-shadow: 1px 1px 1px #ccc;
 }
 span.message{
-    width: 5em;    
+    width: 6em;    
     display: inline-block;
     text-align: justify;
     overflow: hidden;

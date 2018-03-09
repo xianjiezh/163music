@@ -2,11 +2,12 @@
     let view = {
         el: document.querySelector('.uploadSongList'),
         template(data) {
+
             let { name, link } = data
             let singer = name.split(' - ')[0]
             let songName = name.split(' - ')[1]
             let t = `
-            <li data-link=${link}>${singer} - ${songName}</li>
+                <li data-link=${link}>${singer} - ${songName}</li>
             `
             return t
         },
@@ -38,6 +39,16 @@
                     if (link === li.getAttribute('data-link')) {
                         li.classList.add('finish')
                     }
+                }
+            })
+            window.eventHub.on('uploadImg', data => {
+                let liList = this.view.el.children
+                if (liList.length) {
+                    log(liList.length)
+                    log()
+                    liList[liList.length - 1].setAttribute('data-img', data.imgLink)
+                } else {
+                    alert('先上传一首歌，再上传图片哈')
                 }
             })
         },

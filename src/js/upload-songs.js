@@ -2,31 +2,13 @@
 {
     let view = {
         el: document.querySelector('.upload-area'),
-        template() {
-            let t = `
-            <div id="container">
-                <div class="buttonWrapper">
-                    <button id="pickfiles">点击这里上传文件</button>
-                </div>
-                <div>或者直接拖拽文件到此处</div>
-                <div class="upload-text"></div>
-                <div class="progressBarWrapper">
-                    <div class="progressBar"></div>
-                </div>
-            </div>
-            `
-            return t
-        },
-        render(data) {
-            this.el.innerHTML = this.template()
-        }
+        
     }
     let model = {}
     let controller = {
         init(view, model) {
             this.view = view
             this.model = model
-            this.view.render(this.model.data)
             this.initQiniu(this.view.el)
         },
         initQiniu(view) {
@@ -35,7 +17,7 @@
             let uploader = Qiniu.uploader({
                 runtimes: 'html5,html4',    //上传模式,依次退化
                 browse_button: 'pickfiles',       //上传选择的点选按钮，**必需**
-                uptoken_url: '//47.100.0.222:9420/uptoken',
+                uptoken_url: 'http://localhost:8888/uptoken',
                 domain: 'http://p4uyjeusv.bkt.clouddn.com/',   //bucket 域名，下载资源时用到，**必需**
                 get_new_uptoken: false,  //设置上传文件的时候是否每次都重新获取新的token
                 container: 'container',           //上传区域DOM ID，默认是browser_button的父元素，
@@ -52,8 +34,14 @@
                         })
                     },
                     'BeforeUpload': function (up, file) {
+                        log(file.type)
+                        if((file.type + '' !== 'audio/mp3') && (file.type + '' !== 'image/jpeg')){
+                            up.destroy()
+                            alert('只支持上传mp3格式的音频文件或jpg格式的图片')
+                        }
                     },
                     'UploadProgress': function (up, file) {
+                        
                         let num = up.files.length
                         uploadText.textContent = '正在上传第' + (up.total.uploaded - 0 + 1) + '个文件，共' + up.files.length + '个，' + '当前文件进度：' + file.percent + '%'
                         progressBar.classList.add('active')
@@ -61,14 +49,26 @@
                         progressBar.style.width = file.percent + '%'
                     },
                     'FileUploaded': function (up, file, info) {
+                        
                         uploadText.textContent = '文件上传成功'
                         var domain = up.getOption('domain')
                         var res = JSON.parse(info.response)
                         var sourceLink = domain + encodeURIComponent(res.key)
-                        window.eventHub.emit('upload', {
-                            name: file.name,
-                            link: sourceLink
-                        })
+                        log(file.type)
+                        if(file.type === 'audio/mp3'){
+                            window.eventHub.emit('upload', {
+                                name: file.name,
+                                link: sourceLink,
+                                type: 'mp3'
+                            })
+                        } else if(file.type === 'image/jpeg'){
+                            window.eventHub.emit('uploadImg', {
+                                name: file.name,
+                                imgLink: sourceLink,
+                                type: 'jpeg'
+                            })
+                        }
+                        
                     },
                     'Error': function (up, err, errTip) {
                         //上传出错时,处理相关的事情
