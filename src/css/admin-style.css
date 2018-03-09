@@ -28,15 +28,19 @@ input{
     clear: both;
 }
 input[type="text"]{
-    width: 240px;
+    width: 300px;
     height: 26px;
     font-size: 17px;
     font-family: Arial, Helvetica, sans-serif
 }
 textarea{
-    font-size: 17px;
+    font-size: 16px;
     font-family: Arial, Helvetica, sans-serif,;
-    width: 240px;
+    width: calc(100% + 18px)
+}
+.textareaWrapper {
+    width: 300px;
+    overflow: hidden;
 }
 header{
     display: flex;
@@ -198,7 +202,7 @@ span.message::after{
     width: 100%;
 }
 #container{
-    padding: 80px 90px;
+    padding: 80px 10px;
     border: 1px dashed #aaa;
     border-radius: 5px;
     text-align: center;

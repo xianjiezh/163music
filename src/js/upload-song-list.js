@@ -35,8 +35,12 @@
                 let link = data.link
                 for (let i = 0; i < liList.length; i++) {
                     const li = liList[i]
-                    log(link, li.getAttribute('data-link'))
                     if (link === li.getAttribute('data-link')) {
+                        log(li)
+                        li.setAttribute('data-link', data.link)
+                        li.setAttribute('data-img', data.imgLink)
+                        li.textContent = data.singer + '-' + data.songName
+                        li.setAttribute('data-lyric', data.lyric)
                         li.classList.add('finish')
                     }
                 }
@@ -44,9 +48,12 @@
             window.eventHub.on('uploadImg', data => {
                 let liList = this.view.el.children
                 if (liList.length) {
-                    log(liList.length)
-                    log()
-                    liList[liList.length - 1].setAttribute('data-img', data.imgLink)
+                    for (let i = 0; i < liList.length; i++) {
+                        const li = liList[i]
+                        if(!li.getAttribute('data-img')){
+                            li.setAttribute('data-img', data.imgLink)
+                        }
+                    }
                 } else {
                     alert('先上传一首歌，再上传图片哈')
                 }
@@ -66,7 +73,8 @@
                     let [singer, songName, link] = [target.textContent.split('-')[0], target.textContent.split('-')[1], target.getAttribute('data-link')]
                     // 一行写不下
                     let imgLink = target.getAttribute('data-img')
-                    let o = { singer, songName, link, imgLink }
+                    let lyric = target.getAttribute('data-lyric')
+                    let o = { singer, songName, link, imgLink, lyric}
                     window.eventHub.emit('selectedUploadList', o)
                 }
 

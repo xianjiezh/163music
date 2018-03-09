@@ -54,13 +54,15 @@
                     <div class="row">
                         <label>
                             <span class="message">封面外链：</span>
-                            <input type="text" name="cover">
+                            <input type="text" name="imgLink">
                         </label>
                     </div>
                     <div class="row">
                         <label style="align-items: flex-start">
                             <span class="message">歌词：</span>
-                            <textarea name="lyrics" rows="15"></textarea>
+                            <div class="textareaWrapper">
+                                <textarea name="lyrics" rows="15" placeholder="请输入LRC格式的歌词"></textarea>
+                            </div>
                         </label>
                     </div>
                     <div class="row">
@@ -75,7 +77,7 @@
                         <button id="pickfiles">点击这里上传文件</button>
                     </div>
                     <div>拖拽 mp3 格式的音频文件或 jpg/jpeg 格式的歌曲封面图片到这里</div>
-                    <div style="margin-top: 10px;">为了方便您的操作，同一首歌的图片和音频最好是同步上传哈</div>
+                    <div style="margin-top: 10px;">您可以先上传一大堆音频，等全部上传完后，再按顺序上传一大堆图片</div>
                     <div class="upload-text"></div>
                     <div class="progressBarWrapper">
                         <div class="progressBar"></div>

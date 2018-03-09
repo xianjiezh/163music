@@ -8,26 +8,30 @@
         create(data) {
             let TestObject = AV.Object.extend('Playlist')
             let testObject = new TestObject()
-            let { singer, songName, link } = data
+            let { singer, songName, link, imgLink, lyrics} = data
             return testObject.save({
                 singer: singer,
                 songName: songName,
-                link: link
+                link: link,
+                imgLink: imgLink,
+                lyrics: lyrics
             })
         }
     }
     let view = {
         el: document.querySelector('.page main .saveSongsForm'),
         render(data) {
-            let { singer, songName, link, imgLink} = data
+            let { singer, songName, link, imgLink, lyrics} = data
             let inputSinger = this.el.querySelector('[name=singer]')
             let inputSongName = this.el.querySelector('[name=songName]')
             let inputLink = this.el.querySelector('[name=link]')
-            let inputImgLink = this.el.querySelector('[name=cover]')
+            let inputImgLink = this.el.querySelector('[name=imgLink]')
+            let inputLyrics = this.el.querySelector('textarea')
             inputSinger.value = singer || ''
             inputSongName.value = songName || ''
             inputLink.value = link || ''
             inputImgLink.value = imgLink || ''
+            inputLyrics.value = lyrics || ''
         }
     }
     let controller = {
@@ -40,7 +44,7 @@
         bindEvents() {
             this.view.el.addEventListener('submit', (e) => {
                 e.preventDefault()
-                let m = ['singer', 'songName', 'link']
+                let m = ['singer', 'songName', 'link', 'imgLink', 'lyrics']
                 let data = {}
                 m.forEach(value => {
                     data[value] = this.view.el.querySelector(`[name=${value}]`).value
@@ -50,18 +54,18 @@
                     this.reset()
                 } else {
                     let id = this.model.editSongLi.id
-                    let { singer, songName, link } = data
-                    log(id)
+                    let { singer, songName, link, imgLink, lyrics} = data
                     this.editSongs({ id, singer, songName, link })
                 }
             })
         },
         bindEventHub() {
             window.eventHub.on('upload', (data) => {
+                let dataCopy = JSON.parse(JSON.stringify(data))
                 let o = {
-                    singer: data.name.split(' - ')[0],
-                    songName: data.name.split(' - ')[1],
-                    link: data.link
+                    singer: dataCopy.name.split(' - ')[0],
+                    songName: dataCopy.name.split(' - ')[1],
+                    link: dataCopy.link
                 }
                 this.view.render(o)
             })
@@ -79,7 +83,7 @@
                 this.view.render(data)
             })
             window.eventHub.on('uploadImg', data => {
-                this.view.el.querySelector('[name=cover]').value = data.imgLink
+                this.view.el.querySelector('[name=imgLink]').value = data.imgLink
             })
         },
         reset() {
@@ -97,18 +101,19 @@
                     // singer: singer,
                     // link: attributes.link
                 })
-                window.eventHub.emit('successCreate', this.model.data)
+                window.eventHub.emit('successCreate', data)
                 this.reset()
             })
         },
         editSongs(data) {
             log(data)
-            let { id, singer, songName, link } = data
-            let song = AV.Object.createWithoutData('Playlist', id);
-            // 修改属性
+            let { id, singer, songName, link, lyrics} = data
+            let song = AV.Object.createWithoutData('Playlist', id)
             song.set('singer', singer)
             song.set('songName', songName)
             song.set('link', link)
+            song.set('imgLink', imgLink)
+            song.set('lyrics', lyrics)
             song.save().then(res => {
                 data['success'] = 'success'
                 window.eventHub.emit('successEdit', data)

@@ -5,8 +5,11 @@
             let id = song.id
             let singer = song.attributes.singer
             let songName = song.attributes.songName
+            let link = song.attribute.link
+            let imgLink = song.attribute.imgLink
+            let lyric = song.attribute.lyric
             let t = `
-            <li data-id=${id}>${singer} - ${songName}</li>
+            <li data-id=${id} data-img=${imgLink} data-lyric=${lyric}>${singer} - ${songName}</li>
             `
             return t
         },
@@ -48,7 +51,7 @@
                 }
                 e.target.classList.add('active')
                 let id = e.target.getAttribute('data-id')
-                let songs = Object.assign(this.model.songs)
+                
                 songs.forEach(song => {
                     if (song.id === id) {
                         window.eventHub.emit('selected', song)
