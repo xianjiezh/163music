@@ -64,7 +64,9 @@
                     }
                     target.classList.add('active')
                     let [singer, songName, link] = [target.textContent.split('-')[0], target.textContent.split('-')[1], target.getAttribute('data-link')]
-                    let o = { singer, songName, link }
+                    // 一行写不下
+                    let imgLink = target.getAttribute('data-img')
+                    let o = { singer, songName, link, imgLink }
                     window.eventHub.emit('selectedUploadList', o)
                 }
 

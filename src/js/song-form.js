@@ -19,13 +19,15 @@
     let view = {
         el: document.querySelector('.page main .saveSongsForm'),
         render(data) {
-            let { singer, songName, link } = data
+            let { singer, songName, link, imgLink} = data
             let inputSinger = this.el.querySelector('[name=singer]')
             let inputSongName = this.el.querySelector('[name=songName]')
             let inputLink = this.el.querySelector('[name=link]')
+            let inputImgLink = this.el.querySelector('[name=cover]')
             inputSinger.value = singer || ''
             inputSongName.value = songName || ''
             inputLink.value = link || ''
+            inputImgLink.value = imgLink || ''
         }
     }
     let controller = {
@@ -75,6 +77,9 @@
             })
             window.eventHub.on('selectedUploadList', data => {
                 this.view.render(data)
+            })
+            window.eventHub.on('uploadImg', data => {
+                this.view.el.querySelector('[name=cover]').value = data.imgLink
             })
         },
         reset() {
