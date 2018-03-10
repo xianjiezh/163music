@@ -55,7 +55,7 @@
                 } else {
                     let id = this.model.editSongLi.id
                     let { singer, songName, link, imgLink, lyrics} = data
-                    this.editSongs({ id, singer, songName, link })
+                    this.editSongs({ id, singer, songName, link , imgLink, lyrics})
                 }
             })
         },
@@ -71,7 +71,7 @@
             })
             window.eventHub.on('selected', data => {
                 let selectedSong = JSON.parse(JSON.stringify(data))
-                this.model.editSongLi = Object.assign(selectedSong)
+                this.model.editSongLi = selectedSong
                 this.view.render(selectedSong)
             })
             window.eventHub.on('selectedUploadList', data => {
@@ -102,7 +102,7 @@
         },
         editSongs(data) {
             log(data)
-            let { id, singer, songName, link, lyrics} = data
+            let { id, singer, songName, link, imgLink, lyrics} = data
             let song = AV.Object.createWithoutData('Playlist', id)
             song.set('singer', singer)
             song.set('songName', songName)
@@ -110,6 +110,7 @@
             song.set('imgLink', imgLink)
             song.set('lyrics', lyrics)
             song.save().then(res => {
+                log(res)
                 data['success'] = 'success'
                 window.eventHub.emit('successEdit', data)
             })
