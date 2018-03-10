@@ -2,14 +2,9 @@
     let view = {
         el: document.querySelector('.editSongList'),
         template(song) {
-            let id = song.id
-            let singer = song.attributes.singer
-            let songName = song.attributes.songName
-            let link = song.attribute.link
-            let imgLink = song.attribute.imgLink
-            let lyric = song.attribute.lyric
+            let { id, singer, songName } = song
             let t = `
-            <li data-id=${id} data-img=${imgLink} data-lyric=${lyric}>${singer} - ${songName}</li>
+            <li data-id=${id}>${singer} - ${songName}</li>
             `
             return t
         },
@@ -18,6 +13,7 @@
         }
     }
     let model = {
+
         fetch() {
             let query = new AV.Query('Playlist')
             return query.find()
@@ -35,9 +31,16 @@
         },
         getSongs() {
             this.model.fetch().then(songs => {
-                this.model.songs = songs
                 songs.forEach(song => {
-                    this.view.render(song)
+                    let id = song.id
+                    let singer = song.attributes.singer
+                    let songName = song.attributes.songName
+                    let link = song.attributes.link
+                    let imgLink = song.attributes.imgLink
+                    let lyrics = song.attributes.lyrics
+                    let o = { id, singer, songName, link, imgLink, lyrics }
+                    this.model.songs.push(o)
+                    this.view.render(o)
                 })
             })
         },
@@ -51,30 +54,30 @@
                 }
                 e.target.classList.add('active')
                 let id = e.target.getAttribute('data-id')
-                
-                songs.forEach(song => {
+
+                this.model.songs.forEach(song => {
                     if (song.id === id) {
                         window.eventHub.emit('selected', song)
                     }
                 })
             })
         },
-        bindEventHub(){
+        bindEventHub() {
             window.eventHub.on('successEdit', data => {
                 let liList = this.view.el.children
                 for (let i = 0; i < liList.length; i++) {
                     const li = liList[i]
 
-                    if(li.getAttribute('data-id') === data.id){
-                        let { id, singer, songName} = data
+                    if (li.getAttribute('data-id') === data.id) {
+                        let { id, singer, songName } = data
                         li.innerHTML = `${singer} - ${songName}`
                         break
                     }
-                    
+
                 }
             })
         }
-        
+
 
     }
     controller.init(view, model)

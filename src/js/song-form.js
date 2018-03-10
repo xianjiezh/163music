@@ -70,12 +70,7 @@
                 this.view.render(o)
             })
             window.eventHub.on('selected', data => {
-                let selectedSong = {
-                    id: data.id,
-                    singer: data.attributes.singer,
-                    songName: data.attributes.songName,
-                    link: data.attributes.link
-                }
+                let selectedSong = JSON.parse(JSON.stringify(data))
                 this.model.editSongLi = Object.assign(selectedSong)
                 this.view.render(selectedSong)
             })

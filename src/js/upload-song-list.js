@@ -52,6 +52,7 @@
                         const li = liList[i]
                         if(!li.getAttribute('data-img')){
                             li.setAttribute('data-img', data.imgLink)
+                            break
                         }
                     }
                 } else {
