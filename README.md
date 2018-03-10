@@ -1,3 +1,5 @@
 # 163music
-仿网易云音乐   
-[管理页面预览](https://xianjiezh.github.io/163music/src/admin.html)
+这是歌曲上传、管理部分   
+[管理页面预览](http://47.100.0.222:9421/src/admin.html)
+
+
