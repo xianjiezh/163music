@@ -42,11 +42,14 @@ textarea{
     width: 300px;
     overflow: hidden;
 }
-header{
+.header{
     display: flex;
     justify-content: center;
     align-items: center;
     margin-top: 10px;
+    font-size: 48px;
+    font-weight: 400;
+    
 }
 .successTip{
     height: 40px;
