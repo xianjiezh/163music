@@ -4,10 +4,7 @@
       <div class="icon_wrapper">
         <img src="./assets/img/icon_light.png" width="40px" height="40px">
       </div>
-      <Product/>
-      <Info/>
-      <Provision/>
-      <!--<router-view/>-->
+      <router-view/>
     </div>
   </div>
 </template>
@@ -19,7 +16,7 @@ import Provision from './components/Provision'
 export default {
   name: 'App',
   components: {
-    Product, Info,Provision
+    Product, Info, Provision
   }
 }
 </script>

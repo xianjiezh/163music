@@ -1,9 +1,21 @@
 
 <template>
 
-  <div class="user-info">
+  <div class="user-info"  v-title data-title="信息填写">
     <form action="" @submit.prevent="confirmPurchase">
-
+      <div class="userSelect">
+        <div class="picWrapper"><img :src="product.imgLink" alt="商品"></div>
+        <div class="selectText">
+          <p>已选择：</p>
+          <p>{{product.name}}</p>
+        </div>
+        <div class="num">
+          <select name="num">
+            <option value="num1" selected>数量：1</option>
+            <option value="num2">数量：2</option>
+          </select>
+        </div>
+      </div>
       <h3>请填写您的信息</h3>
       <div class="row">
         <input type="text" placeholder="收货人姓名" required v-model="userName" :class="{err:userNameIllegal}">
@@ -17,9 +29,9 @@
       <h5 class="address">收货地址</h5>
       <v-distpicker @selected="onSelected" :province="choices.province" :city="choices.city" :area="choices.area" v-model="districts"></v-distpicker>
       <input type="text" placeholder="街道编号/名称，楼宇名称" v-model="detailAddress">
-      <div class="howDoYouKonwThis">你从哪里知道这个产品（必填）</div>
-      <ul>
-        <li v-for="(way) in ways">
+      <div class="howDoYouKnowThis">你从哪里知道这个产品（必填）</div>
+      <ul class="ways">
+        <li v-for="way in ways">
           <label>
             <input type="radio" :name="'radio'" :value="way"><span>{{way}}</span>
           </label>
@@ -59,7 +71,8 @@
           'city': '城市',
           'area': '区县'
         },
-        isSelected: false
+        isSelected: false,
+        product: null
       }
     },
     methods: {
@@ -74,25 +87,67 @@
           this.userNameIllegal = true
         }else if (!this.userPhone || this.userPhone.length < 10){
           this.userPhoneIllegal = true
-        }else if (!this.userEmail || (this.userEmail.indexOf('@') === -1 || this.userEmail.length < 6)){
-          this.userEmailIllegal = true
         }
-
-
       }
 
     },
+    created(){
+      this.product = JSON.parse(decodeURIComponent(JSON.stringify(this.$route.query)))
+      console.log(VDistpicker)
+    },
     updated(){
-
     }
   }
 
 </script>
 
 <style scoped>
+  select {
+    padding: .5rem .75rem;
+    height: 40px;
+    font-size: 16px;
+    line-height: 1.25;
+    outline: none;
+    color: #464a4c;
+    background-color: #fff;
+    background-image: none;
+    -webkit-background-clip: padding-box;
+    background-clip: padding-box;
+    border: 1px solid rgba(0, 0, 0, .15);
+    border-radius: .25rem;
+    -webkit-transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+    -o-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s, -webkit-box-shadow ease-in-out .15s;
+  }
+  .ways {
+    display: flex;
+    flex-wrap: wrap;
+  }
+  .ways li {
+    margin-top: 10px;
+    flex-grow: 1;
+  }
+  h3{
+    margin-top: 25px;
+    margin-bottom: 2px;
+  }
+  h5{
+    margin-bottom: 11px;
+    color: #444;
+  }
+
+  .confirm{
+    display: flex;
+    align-items: center;
+  }
+  select:focus{
+    border-color: #9d9d9d;
+  }
   .user-info{
     background-color: white;
-    padding: 25px 15px;
+    padding: 25px 8px 25px 14px;
   }
   .address{
     margin-top: 15px;
@@ -112,6 +167,28 @@
   }
   v-distpicker{
     margin-top: 15px;
+  }
+  .userSelect{
+    display: flex;
+    justify-content: space-between;
+    height: 60px;
+    padding-right: 20px;
+    align-items: center;
+    box-shadow: 0 0 8px rgba(0,0,0,.1);
+  }
+  .userSelect p,
+  .howDoYouKnowThis,
+  .ways{
+    color:#555;
+    font-size: 15px;
+    line-height: 15px;
+    margin: 12px 0;
+  }
+  .picWrapper{
+    height: 100%;
+  }
+  .picWrapper img{
+    height: 100%;
   }
   .err {
     border: 1px solid #E42C3E;

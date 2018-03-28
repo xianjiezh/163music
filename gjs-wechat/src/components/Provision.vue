@@ -1,6 +1,6 @@
 
 <template>
-  <div id="wrapper">
+  <div id="wrapper" v-title data-title="预购服务条款">
 
     <!-- 头部区 -->
     <header id="header" class="dark">
@@ -142,12 +142,7 @@
           工匠社是一家位于深圳的致力于微型机器人产品开发设计的公司，拥有研发设计，销售运营及售后服务一整套完整服务的新型科技类创业企业。本公司自2014年创立研发机器人产品，已经累计获得多项政府认证扶持，多项知识产权保护。第一代产品「Ganker」机器人面市后受到大量消费者喜爱，已向超过200位用户提供了完整的预订服务。
         </p>
       </div>
-
-
     </section>
-
-
-
   </div>
 
 
@@ -169,7 +164,7 @@
 <style scoped>
 
   #wrapper{
-    padding: 19px 15px;
+    padding: 20px 15px;
     background-color: #e9e9e9;
   }
   h1{
@@ -179,7 +174,6 @@
     font-size: 20px;
     margin-top: 29px;
   }
-
   p{
     margin-bottom: 13px;
     color: #555;
@@ -191,7 +185,7 @@
     width: 100%;
     height: 2px;
     margin-top: -20px;
-    margin-bottom: 13px;
+    margin-bottom: 12px;
   }
   .text-danger{
     color: #a94442;

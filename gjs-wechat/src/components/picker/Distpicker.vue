@@ -1,7 +1,7 @@
 <template>
   <div class="distpicker-address-wrapper">
     <template v-if="type != 'mobile'">
-      <select @change="getCities" v-model="currentProvince" :disabled="disabled">
+      <select @change="autoSelect" v-model="currentProvince" :disabled="disabled">
         <option :value="placeholders.province">{{ placeholders.province }}</option>
         <option v-for="(item, index) in provinces"
                 :value="item"
@@ -163,6 +163,7 @@ export default {
         code: this.getAreaCode(value, check),
         value: value,
       }
+
     },
     emit(name) {
       let data = {
@@ -178,26 +179,42 @@ export default {
       }
 
       this.$emit(name, data)
+
     },
-    getCities() {
-      this.currentCity = this.placeholders.city
-      this.currentArea = this.placeholders.area
+    autoSelect() {
       this.cities = this.determineValue(this.currentProvince, this.placeholders.province)
-      this.cleanList('areas')
+      console.log(this.cities)
+      for(let key in this.cities){
+        console.log(this.cities[key])
+        this.currentCity = this.cities[key]
+        break
+      }
+
+
+
       if (this.cities === null) {
         this.emit('selected')
         this.tab = 1
         this.showCityTab = false
       }
-    },
-    getAreas() {
-      this.currentArea = this.placeholders.area
       this.areas = this.determineValue(this.currentCity, this.placeholders.city, this.currentProvince)
+      console.log(this.areas)
+      for(let key in this.areas){
+        console.log(this.areas[key])
+        this.currentArea = this.areas[key]
+        break
+      }
+
       if (this.areas === null) {
         this.emit('selected')
         this.tab = 2
         this.showAreaTab = false
       }
+
+    },
+    getAreas() {
+      //
+
     },
     resetProvince() {
       this.tab = 1
@@ -248,7 +265,6 @@ export default {
       }
     },
     getCodeValue(code) {
-      console.log(code)
       for(let x in DISTRICTS) {
         for(let y in DISTRICTS[x]) {
           if(code === parseInt(y)) {
@@ -287,26 +303,22 @@ export default {
   select {
     padding: .5rem .75rem;
     height: 40px;
-    font-size: 1rem;
+    font-size: 16px;
     line-height: 1.25;
-    width: 30%;
+    width: 32%;
     outline: none;
     color: #464a4c;
     background-color: #fff;
     background-image: none;
     -webkit-background-clip: padding-box;
     background-clip: padding-box;
-    border: 1px solid rgba(0,0,0,.15);
+    border: 1px solid #ccc;
     border-radius: .25rem;
-    -webkit-transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
-    transition: border-color ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
-    -o-transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s;
-    transition: border-color ease-in-out .15s,box-shadow ease-in-out .15s,-webkit-box-shadow ease-in-out .15s;
+    transition:  ease-in-out .15s,box-shadow ease-in-out .15s;
+    box-shadow: inset 0 1px 1px rgba(0,0,0,.075);
     select:focus{
       border: #9d9d9d;
     }
-
     option {
       font-weight: normal;
       display: block;

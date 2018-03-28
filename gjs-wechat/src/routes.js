@@ -4,5 +4,5 @@ import Provision from './components/Provision'
 export default [
   {path: '/', component: Products},
   {path: '/info', component: Info},
-  {path: 'provision', component: Provision}
+  {path: '/provision', component: Provision}
 ]
