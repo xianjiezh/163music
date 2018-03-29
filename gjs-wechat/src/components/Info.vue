@@ -2,7 +2,7 @@
 <template>
 
   <div class="user-info"  v-title data-title="信息填写">
-    <form action="" @submit.prevent="confirmPurchase">
+    <form action="" method="post" @submit.prevent="confirmPurchase">
       <div class="userSelect">
         <div class="picWrapper"><img :src="product.imgLink" alt="商品"></div>
         <div class="selectText">
@@ -18,17 +18,17 @@
       </div>
       <h3>请填写您的信息</h3>
       <div class="row">
-        <input type="text" placeholder="收货人姓名" required v-model="userName" :class="{err:userNameIllegal}">
+        <input type="text" name="userName" placeholder="收货人姓名" required v-model="userName" :class="{error:userNameIllegal}">
       </div>
       <div class="row">
-        <input type="text" placeholder="手机号" required v-model="userPhone" :class="{err: userPhoneIllegal}">
+        <input type="text" placeholder="手机号" name="userPhone" required v-model="userPhone" :class="{error: userPhoneIllegal}">
       </div>
       <div class="row">
-        <input type="text" placeholder="电子邮箱（可选）" v-model="userEmail" :class="{err: userEmailIllegal}">
+        <input type="text" placeholder="电子邮箱（可选）" name="userEmail" v-model="userEmail">
       </div>
       <h5 class="address">收货地址</h5>
       <v-distpicker @selected="onSelected" :province="choices.province" :city="choices.city" :area="choices.area" v-model="districts"></v-distpicker>
-      <input type="text" placeholder="街道编号/名称，楼宇名称" v-model="detailAddress">
+      <input type="text" placeholder="街道编号/名称，楼宇名称" v-model="detailAddress" required :class="{error: userPhoneIllegal}">
       <div class="howDoYouKnowThis">你从哪里知道这个产品（必填）</div>
       <ul class="ways">
         <li v-for="way in ways">
@@ -38,8 +38,8 @@
         </li>
       </ul>
       <div class="agreeChoice">
-        <label><input type="checkbox" name="iAgree">我已同意</label>
-        <a href="#">《工匠社机器人预购服务条款》</a>
+        <label><input type="radio" name="UserAgree">我已同意</label>
+        <router-link :to="{path: '/provision'}">《工匠社机器人预购服务条款》</router-link>
       </div>
       <div class="confirm">
         <input type="submit" :value="buttonContent">
@@ -83,17 +83,24 @@
         this.choices.area = data.area.value
       },
       confirmPurchase: function () {
-        if(!this.userName || (this.userName === 1)){
-          this.userNameIllegal = true
-        }else if (!this.userPhone || this.userPhone.length < 10){
-          this.userPhoneIllegal = true
+        if (this.isSelected) {
+          console.log(111)
+          if(!this.userName || (this.userName.length <= 1)){
+            this.userNameIllegal = true
+            console.log('userPhoneIllegal', this.userNameIllegal)
+          }
+          if (!this.userPhone || this.userPhone.length < 10){
+            this.userPhoneIllegal = true
+            console.log('userPhoneIllegal', this.userPhoneIllegal)
+          }
+        } else {
+
         }
       }
 
     },
     created(){
       this.product = JSON.parse(decodeURIComponent(JSON.stringify(this.$route.query)))
-      console.log(VDistpicker)
     },
     updated(){
     }
@@ -190,9 +197,12 @@
   .picWrapper img{
     height: 100%;
   }
-  .err {
+  input.error{
     border: 1px solid #E42C3E;
   }
+  /*.err {*/
+    /*border: 1px solid #E42C3E;*/
+  /*}*/
   .confirm input{
     width: 100%;
     text-align: center;

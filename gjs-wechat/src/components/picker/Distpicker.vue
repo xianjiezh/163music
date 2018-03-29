@@ -183,24 +183,20 @@ export default {
     },
     autoSelect() {
       this.cities = this.determineValue(this.currentProvince, this.placeholders.province)
-      console.log(this.cities)
       for(let key in this.cities){
-        console.log(this.cities[key])
         this.currentCity = this.cities[key]
         break
-      }
-
-
-
+      }0
       if (this.cities === null) {
         this.emit('selected')
         this.tab = 1
         this.showCityTab = false
       }
+      this.getAreas()
+    },
+    getAreas() {
       this.areas = this.determineValue(this.currentCity, this.placeholders.city, this.currentProvince)
-      console.log(this.areas)
       for(let key in this.areas){
-        console.log(this.areas[key])
         this.currentArea = this.areas[key]
         break
       }
@@ -210,10 +206,6 @@ export default {
         this.tab = 2
         this.showAreaTab = false
       }
-
-    },
-    getAreas() {
-      //
 
     },
     resetProvince() {
@@ -330,7 +322,7 @@ export default {
   ul {
     margin: 0;
     padding: 0;
-
+  
     li {
       list-style: none;
     }

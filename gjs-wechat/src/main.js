@@ -10,7 +10,7 @@ Vue.config.productionTip = false
 
 Vue.use(VueRouter)
 Vue.component('v-distpicker', Distpicker)
-
+Vue.use(axios)
 const router = new VueRouter({
   routes: Routes,
   mode: 'history'
